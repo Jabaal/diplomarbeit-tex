@@ -1,0 +1,43 @@
+\chapter{Versuchsstand aktuell}%
+Der Prüfstand für E-Roller der \gls{htwdd} wurde seit seiner Beschaffung im Jahr 2011 mehrfach überarbeitet und erweitert. Die Prüfvorrichtung dient zur Prüfung von motorisierten Zweirädern mit Heckantrieb. Dabei wird das Vorderrad in die entsprechende Halterung eingespannt und somit das Antriebsrad auf die Rolle gesetzt wie in Abbildung~\ref{fig: rollerpruefstand} zu sehen.
+\begin{figure}[!hbt]
+\includegraphics[width=0.5\textwidth ,center]{platzhalter}
+\caption{E-Roller-Prüfstand}
+\label{fig: rollerpruefstand}
+\end{figure}
+
+Bei der Anschaffung des Prüfstandes wurde ein eigenes Sensor-Interface zur Ansteuerung der Hardware des Prüfstandes entwickelt. \cite[][S. 32ff]{reuter} 
+Eine Dokumentation zu diesem Sensor-Interface war leider nicht aufzufinden, weshalb das System untersucht wurde. Eine grobe Skizze des Boards, die Datenblätter der Bauelemente sowie die Verkabelungen der Anschlüsse finden sich im \ref{chap: anhang}.
+
+\section{Messung der Geschwindigkeit}
+In der Rolle aus Abbildung~\ref{fig: rollerpruefstand} sind Hall-Sensoren angebracht, um die Drehzahl $n_{rolle}$ zu erfassen. Die Drehzahlsensoren werden dabei mit einer Spannung von $U_{drehzahl} = 5 V$ versorgt und geben ein Rechtecksignal wie in Abbildung~\ref{fig: drehzahl-signal} aus. Bei dem Rechtecksignal werden die fallenden Flanken gezählt, wobei eine Umdrehung der Rolle einer Periodenanzahl von  $T_n = 2560$ entspricht. Die gezählten Flanken werden anschließend mittels eines Frequenzteilers (\emph{Motorola MC14024B}) auf die Hälfte reduziert und diese halbierte Flankenzahl $n_{flanken}$ wird an den Mikrocontroller (\emph{Microchip dsPIC33FJ128GP802}) weitergegeben. Diese Einschränkung mittels eines Frequenzteilers musste aufgrund der geringen Rechenleistung des Mikrocontrollers getroffen werden. \cite[][S. 42]{reuter}
+
+Der Mikrocontroller selbst führt keine Geschwindigkeitsberechnung durch, sondern gibt die Flankenzahl $n_{flanken}$ an den RS232-Wandler (\emph{MAX232}, welcher das Signal über die RS232-Schnittstelle an den Festrechner weiterleitet. Mit dem Rollenumfang $u_r = 0,628m$ wird die Geschwindigkeit des Rollers anschließend in \emph{LabVIEW} berechnet (siehe Gleichung~\ref{eq: v-roller}).
+
+\begin{equation} \label{eq: v-roller}
+\begin{split}
+v_{roller} & = u_r n_{rolle}  \\
+ & = u_r \frac{2 * n_{flanken}}{T_n} \\
+ & = 0,628m \frac{2 * n_{flanken}}{2560}
+\end{split}
+\end{equation}
+
+
+\begin{figure}[!hbt]
+\includegraphics[width=0.5\textwidth ,center]{platzhalter}
+\caption{Ausgabesignal der Drehzahlsensoren}
+\label{fig: drehzahl-signal}
+\end{figure}
+
+\chapter{Optimierung und Erweiterung des Versuchsstandes}
+\section{NI-USB-6001}
+Zur Aufnahme der Messwerte wurde im Zuge einer Projektarbeit (\cite[][]{seiler}) an der \gls{htwdd}	ein neues Messgerät erworben. Das \textsc{NI-USB-6001} besitzt X Eingänge usw. ... \cite[][]{6001specs} \cite[][]{6001man}
+\subsection{Drehzahlaufnahme}
+Die Drehzahl wird über den Zählereingang 
+\section{Steuerung der Wirbelstrombremse}
+Die Wirbelstrombremse wird über analoges Spannungssignal von $U_{steuer} = 0 ... 3,3V$ gesteuert. 
+
+Mittels eines \gls{da}-Wandlers (\emph{LTC1661}) wird ein Spannungssignal erzeugt, wobei für 100\% Bremsleistung ein Pegel von $U_{steuer} = 3,3V$ benötigt werden.
+ 
+Leider kann das Messgerät \textsc{NI-USB-6001} nicht gleichzeitig gleichzeitig analoge Messwerte aufnehmen und wechselnde analoge Werte ausgeben. \cite[][]{6001-nomulti}
+Deshalb wird für die Ansteuerung ein zweites Gerät benötigt.

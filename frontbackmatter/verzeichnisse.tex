@@ -1,11 +1,9 @@
-%%% INHALTSVERZEICHNIS
+%%%%%%%%%%%%%%% INHALTSVERZEICHNIS
 \pagenumbering{Roman}% Seitenzahlen mit großen römischen Buchstaben beginnen
-\pdfbookmark[section]{\contentsname}{toc} %Fügt in der Navigation (und nur in der PDF-Datei!) den Eintrag Inhaltsverzeichnis hinzu
+\pdfbookmark[section]{\contentsname}{toc}% Fügt in der Navigation (und nur in der PDF-Datei!) den Eintrag Inhaltsverzeichnis hinzu
 \tableofcontents% Inhaltsverzeichnis erstellen
 \newpage% 
-%
-%
-%%% ABKÜRZUNGSVERZEICHNIS
+%%%%%%%%%%%%%%% ABKÜRZUNGSVERZEICHNIS
 \printglossary[% Verzeichnis einfügen
 	type=abbreviations,% Abkürzungen hier einfügen 
 	title=Abk\"urzungen,% neu benennen, sonst wird es "Akronyme" heißen, was nicht immer richtig ist
@@ -13,9 +11,7 @@
 	nogroupskip% Kein vertikaler Abstand zwischen Buchstaben für die alphabetische Sortierung
 	]%
 \newpage%
-%
-%
-%%% VERZEICHNIS DER FORMELZEICHEN UND SYMBOLE
+%%%%%%%%%%%%%%%% VERZEICHNIS DER FORMELZEICHEN UND SYMBOLE
 \printglossary[% Erstellt das Verzeichnis der Formelzeichen und Symbole hier
 	type=symbols,% Symbolverzeichnis einfügen
 	title={Formelzeichen und Symbole},% Umbenennen des Verzeichnisses
@@ -23,13 +19,9 @@
 	nogroupskip% Kein vertikaler Abstand für die alphabetische Sortierung
 	]%
 \newpage%
-%
-%
-%%% ABBILDUNGSVERZEICHNIS
+%%%%%%%%%%%%%%% ABBILDUNGSVERZEICHNIS
 \listoffigures% Erstellt das Abbildungsverzeichnis
 \newpage%
-%
-%
-%%% TABELLENVERZEICHNIS
+%%%%%%%%%%%%%%% TABELLENVERZEICHNIS
 \listoftables% Erstellt das Tabellenverzeichnis
 \newpage%
